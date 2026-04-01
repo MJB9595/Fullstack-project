@@ -133,20 +133,19 @@ const Signup = () => {
               placeholder="전화번호를 입력하세요"
             />
           </div>
-          {error && <p className='error-text'> {error}</p>}
           <div className="auth-btn-wrap">
+            {error && <p className='error-text'> {error}</p>}
+            <div className="auth-now">
+              <Link to="/login">
+                <Button text="이미 계정이 있으신가요?" />
+              </Link>
+            </div>
             <Button 
             text={isLoading? "가입 중...":"회원가입"} 
             type="submit" 
             className="primary" />
           </div>
         </form>
-        <div className="auth-now">
-          <span>이미 계정이 있으신가요?</span>
-          <Link to="/login">
-            <Button text="로그인하기" icons />
-          </Link>
-        </div>
       </div>
     </section>
   )

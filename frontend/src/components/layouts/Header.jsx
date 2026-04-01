@@ -2,14 +2,16 @@ import React from 'react'
 import './Header.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../ui/Button'
-import { logout } from '@/api/auth.api'
+import { logout as logoutApi } from '@/api/auth.api'
+import { useAuth } from '@/store/auth.store'
 const Header = () => {
   const navigate = useNavigate()
+  const { logout } = useAuth()
 
   const menus = [
     {
-      name: '내 메모',
-      link: '/app/memos'
+      name: '내 작성글',
+      link: '/app/posts/all'
     },
     {
       name: '내 프로필',
@@ -24,7 +26,9 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await logout()
+
+      await logoutApi()
+      logout()
       navigate("/")
 
     } catch (error) {
@@ -36,7 +40,7 @@ const Header = () => {
       <div className="inner">
         <h1>
           <Link to="/app">
-            <img src="/images/logo.svg" alt="logo" />
+            <img src="/images/Logo_index.png" alt="logo" />
           </Link>
         </h1>
         <div className="right">

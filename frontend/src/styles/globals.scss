@@ -75,7 +75,11 @@ section {
   overflow-y:auto ;
 
   &.signup-section,
-  &.login-section,
+  &.login-section {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/Logo.png') no-repeat center center / cover;
+  }
+
   &.landing-section {
     height: 100vh;
   }

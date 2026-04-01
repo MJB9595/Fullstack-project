@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
-import Button from '../../components/ui/Button'
+import Button from '@/components/ui/Button'
 import './Auth.scss'
 import Input from '@/components/ui/Input'
-import { Link, useNavigate } from 'react-router-dom'
-import { login } from '@/api/auth.api'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { login as loginApi } from '@/api/auth.api'
+import { useAuth } from '@/store/auth.store'
 const Login = () => {
 
   const navigate = useNavigate()
+
+
+  const { login, isReady, isAuthed } = useAuth()
+
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -38,10 +43,12 @@ const Login = () => {
     try {
       setIsLoading(true)
       setError('')
-      await login({
+      const data =await loginApi({
         email: form.email.trim(),
         password: form.password
       })
+
+      login(data)
       navigate('/app')
 
     } catch (error) {
@@ -54,6 +61,10 @@ const Login = () => {
 
   const handleBack = () => {
     navigate(-1)
+  }
+
+  if (isReady && isAuthed) {
+    return <Navigate to="/app" replace />
   }
 
   return (
@@ -88,16 +99,15 @@ const Login = () => {
               />
             </div>
             <div className="auth-btn-wrap">
+              <div>
+                <Link to="/signup">
+                  <Button text="계정이 없으신가요?" />
+                </Link>
+              </div>
               <Button text="로그인" type="submit" className="primary" />
             </div>
           </form>
           {error && <p className='error-text'> {error}</p>}
-          <div className="auth-now">
-            <span>계정이 없으신가요?</span>
-            <Link to="/signup">
-              <Button text="회원가입하기" icons />
-            </Link>
-          </div>
         </div>
       </div>
     </section>

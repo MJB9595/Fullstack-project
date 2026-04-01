@@ -2,6 +2,7 @@
 
 .auth {
     height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/bg-vaio.png') no-repeat center center / cover;
 
     .inner {
         display: flex;
@@ -30,18 +31,25 @@
 
             .auth-btn-wrap {
                 margin-top: $space-lg;
+                display: flex; /* Enable flexbox */
+                justify-content: flex-end; /* Push to the right */
+                gap: $space-md;
+
+                .btn.primary {
+                    width: 25%;
+                }
             }
         }
 
-        .auth-now {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: $space-md;
-
-            span {
-                color: $muted;
-            }
-        }
     }
+}
+
+.error-text {
+    display: flex;
+    margin-top: $space-sm;
+    margin-right: $space-md;
+    border: 1px solid $warning;
+    border-radius: 20px;
+    gap: $btn-gap;
+    padding: $btn-padding-y $btn-padding-x;
 }
