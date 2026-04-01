@@ -1,60 +1,149 @@
 @use "@/styles/variables" as *;
-.post-section{
-    .inner {
-        max-width: $container-md;
-        .post-header{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: $space-lg;
-            .post-title {
-                font-size: $text-xl;
-                font-weight: $fw-bold;
 
-            }
+.page {
+  background-color: #FAFAFA; /* 전체 배경 약간 회색 (시안 느낌) */
+  min-height: calc(100vh - 160px);
+}
 
-            .btn.primary {
-                width: auto;
-            }
-        }
+.layout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+
+  /* 상단 히어로 영역 (타이틀 및 우측 버튼/검색) */
+  .hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+
+    .title-area {
+      .hero-title {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: #111;
+      }
+      .hero-subtitle {
+        font-size: 16px;
+        color: #888;
+      }
     }
 
-    &.post-detail {
-        .inner {
-            .post-card{
-                margin-top: $space-xl;
-                display: flex;
-                flex-direction: column;
-                gap: $space-lg;
-                border:1px solid $gray-200;
-                padding:$space-lg;
-                border-radius: $r-md;
-                color:$bg;
-                
-                .post-card-title{
-                    font-size: $text-xl;
-                    margin: $space-md 0;
-                }
-                .post-card-content{
-                    min-height: 200px;
-                    background-color: $gray-50;
-                    padding:$space-md;
-                    border-radius: $r-sm;
-                }
+    .action-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
 
-                .img-wrap{
-                    margin: $space-md 0;
-                }
-            }
-            .btn-wrap {
-                margin-top: $space-xl;
-                display: flex;
-                justify-content: space-between;
-                gap: $space-md;
-                .btn {
-                    flex: 1;
-                }
-            }
+      .back-btn {
+        background: none;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        color: #333;
+        font-weight: 500;
+        &:hover { text-decoration: underline; }
+      }
+
+      .search-wrap {
+        input {
+          border: 1px solid #ddd;
+          border-radius: 20px;
+          padding: 10px 20px;
+          width: 250px;
+          outline: none;
+          &:focus { border-color: #1A0A2E; }
         }
+      }
+
+      &.detail-actions {
+        .post-date {
+          font-size: 14px;
+          color: #666;
+          margin-top: 10px;
+        }
+      }
     }
+  }
+
+  /* 2단 그리드 영역 */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+
+    .sidebar {
+      .sidebar-title {
+        color: #0044CC; /* 파란색 Category 텍스트 */
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-decoration: underline;
+      }
+
+      .category-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .category-item {
+          font-size: 15px;
+          color: #333;
+          cursor: pointer;
+          &:hover { font-weight: bold; }
+        }
+      }
+    }
+
+    .main-content {
+      .section-title {
+        color: #0044CC; /* 파란색 포스트 태그 텍스트 */
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        text-decoration: underline;
+      }
+      
+      /* 디테일 페이지 전용 이미지 & 내용 */
+      .detail-hero-image {
+        width: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+
+      .detail-body {
+        font-size: 16px;
+        color: #222;
+        p { margin-bottom: 20px; }
+      }
+
+      .detail-admin-actions {
+        margin-top: 60px;
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+        
+        .text-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #666;
+          text-decoration: underline;
+          &.text-danger { color: #d32f2f; }
+        }
+      }
+    }
+  }
 }

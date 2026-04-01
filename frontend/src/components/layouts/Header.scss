@@ -1,22 +1,143 @@
 @use "@/styles/variables" as *;
-header {
-    .inner {
-        max-width: $container-lg;
-        display: flex;
-        justify-content: space-between;
-        padding: $space-lg 0;
 
-        h1 {
-            width: 136px;
-        }
-        .right {
-            display: flex;
-            align-items: center;
-            
-            ul{
-                
-                display: flex;
-            }
-        }
+.global-header {
+  background-color: #1A0A2E; 
+  color: #fff;
+  border-bottom: none;
+  position: relative; // 드롭다운 위치 기준점
+  z-index: 100;
+
+  .inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+
+    h1 {
+      width: 136px;
+      img {
+        width: 100%;
+        display: block;
+        filter: brightness(0) invert(1);
+      }
     }
+
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+
+      ul.desktop-menu {
+        display: flex;
+        gap: 24px;
+        list-style: none;
+
+        .nav-link {
+          color: #fff;
+          font-size: 14px;
+          text-decoration: none;
+          opacity: 0.8;
+          transition: opacity 0.2s;
+          &:hover { opacity: 1; }
+        }
+      }
+
+      .logout-btn.desktop-menu {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+        &:hover {
+          border-color: #fff;
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+
+      .hamburger-menu {
+        display: none; // 데스크탑에선 숨김
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 5px;
+        
+        span {
+          display: block;
+          width: 24px;
+          height: 2px;
+          background-color: #fff;
+          transition: all 0.3s ease;
+        }
+
+        /* 햄버거 메뉴 X 모양 애니메이션 (선택 사항) */
+        &.open {
+          span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+          span:nth-child(2) { opacity: 0; }
+          span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        }
+      }
+    }
+  }
+
+  /* 모바일 드롭다운 메뉴 스타일 */
+  .mobile-dropdown {
+    display: none; // 기본적으로 감춤
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #1A0A2E;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        
+        .nav-link {
+          display: block;
+          padding: 16px 24px;
+          color: #fff;
+          text-decoration: none;
+          font-size: 14px;
+          opacity: 0.9;
+        }
+
+        .mobile-logout-btn {
+          width: 100%;
+          text-align: left;
+          background: transparent;
+          color: #ff6b6b; // 로그아웃은 눈에 띄게
+          border: none;
+          padding: 16px 24px;
+          font-size: 14px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  /* 반응형 800px 이하 */
+  @media (max-width: 800px) {
+    .desktop-menu {
+      display: none !important; // 데스크탑 메뉴 숨김
+    }
+    .hamburger-menu {
+      display: flex !important; // 햄버거 노출
+    }
+    .mobile-dropdown.show {
+      display: block; // 토글 상태에 따라 노출
+    }
+  }
 }
