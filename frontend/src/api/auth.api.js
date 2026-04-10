@@ -79,12 +79,13 @@ export const updateMe = async (payload) => {
     const response = await fetch(`${BASE_URL}/auth/me`, {
         method: 'PATCH',
         credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(payload)
-
     })
 
     const data = await response.json().catch(() => null)
-
 
     if (!response.ok) {
         throw new Error(data?.message || '회원 정보 수정하기 실패')
