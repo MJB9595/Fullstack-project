@@ -1,15 +1,15 @@
 import React from 'react'
 import './ProfilePage.scss'
+import { useNavigate } from 'react-router-dom'
 import Button from '@/components/ui/Button'
 import ProfileBase from '@/components/profile/ProfileBase'
 import ProfileName from '@/components/profile/ProfileName'
 import ProfileSummary from '@/components/profile/ProfileSummary'
 import PagesHeader from '../../components/layouts/PagesHeader'
-import { useNavigate } from 'react-router-dom'
 const Profile = () => {
 
-  const navigate = useNavigate() 
-  const handleGoBack = ()=> {
+  const navigate = useNavigate()
+  const handleGoBack = ()=>{
     navigate(-1)
   }
   return (
@@ -20,13 +20,15 @@ const Profile = () => {
           buttonText='뒤로가기'
           showButton
           buttonClass="back bl"
+          backico="bh"
+          onClick={handleGoBack}
         />
         <main>
-          <div className='left'>
+          <div className="left">
             <ProfileName />
-            <ProfileSummary />   
+            <ProfileSummary />
           </div>
-            <ProfileBase />
+          <ProfileBase />
         </main>
       </div>
     </section>

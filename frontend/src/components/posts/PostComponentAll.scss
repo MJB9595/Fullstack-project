@@ -1,38 +1,64 @@
 @use "@/styles/variables" as *;
 
-/* 태그 필터 영역 (버튼 형태) */
+/* 태그 필터 영역 */
 .tags {
   display: flex;
-  gap: 10px;
+  gap: 8px; // $space-sm
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 24px; // $space-lg
 
   .post-tag {
     display: inline-flex;
-    border: 1px solid #ccc;
-    background-color: transparent;
-    color: #666;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
+    align-items: center; // 텍스트와 X버튼 수직 중앙 정렬
+    gap: 6px; // 텍스트와 X버튼 사이 간격
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    color: #333; // 흰색 배경에 맞춘 어두운 글자
+    padding: 6px 14px;
+    border-radius: 20px; // $r-pill
+    font-size: 13px; // $text-xs
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover, &.active {
-      border-color: #333;
-      color: #333;
+      border-color: $purple;
+      color: $purple;
+      background-color: rgba(131, 56, 236, 0.05);
+    }
+
+    /* 👇 추가된 X 버튼 스타일 */
+    .post-tag-delete {
+      background: transparent;
+      border: none;
+      color: inherit;
+      font-size: 10px; // X 기호를 작고 깔끔하게
+      cursor: pointer;
+      opacity: 0.5;
+      padding: 2px 4px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #ff4d4f; // 마우스 올리면 경고(빨간색) 느낌 살짝
+      }
     }
   }
 }
+
 
 /* 게시물 리스트 컨테이너 */
 .post-list {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: $space-lg;
 }
 
-/* 카드 스타일 (첫 번째 이미지의 VAIO-X505 카드 참고) */
+/* 게시물 카드 스타일 */
 .post-card {
   text-decoration: none;
   color: inherit;
@@ -40,16 +66,28 @@
   
   article {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
-    border-radius: 20px;
-    padding: 30px;
-    transition: box-shadow 0.2s, transform 0.2s;
+    background: $bg-soft; // 어두운 회색 배경
+    border: 1px solid $line;
+    border-color: rgba(#333, 0.4);
+    border-radius: $r-lg;
+    padding: $space-lg;
+    transition: all $ease;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      padding: 30px;
+    }
 
     &:hover {
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(131, 56, 236, 0.15);
+      border-color: rgba($purple, 0.4);
+      transform: translateY(-4px);
+      
+      .img-wrap img {
+        transform: scale(1.05);
+      }
     }
 
     .post-card-body {
@@ -57,46 +95,54 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      margin-bottom: $space-md;
+
+      @media (min-width: 768px) {
+        margin-bottom: 0;
+        padding-right: 40px;
+      }
 
       .post-category {
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 8px;
+        font-size: $text-sm;
+        color: $purple-2;
+        font-weight: $fw-bold;
+        margin-bottom: $space-sm;
         letter-spacing: 0.5px;
+        text-transform: uppercase;
       }
 
       .post-title {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 20px;
+        font-size: $text-xl;
+        font-weight: $fw-bold;
+        margin-bottom: $space-md;
         color: #111;
+        line-height: 1.4;
       }
 
       .tags {
-        margin-bottom: 0; // 하단 마진 제거
-        .badge-tag {
-          border: 1px solid #111;
-          color: #111;
-          padding: 6px 14px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: 500;
-        }
+        margin-bottom: 0;
       }
     }
 
     .img-wrap {
-      width: 380px;
-      height: 240px;
-      border-radius: 12px;
+      width: 100%;
+      height: 200px;
+      border-radius: $r-md;
       overflow: hidden;
-      background-color: #f5f5f5;
+      background-color: $bg; // 더 어두운 배경
       flex-shrink: 0;
+      border: 1px solid $line;
+
+      @media (min-width: 768px) {
+        width: 320px;
+        height: 220px;
+      }
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.4s ease;
       }
     }
   }
