@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getPostById, deletePost } from '@/api/post.api'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useAuth } from '@/store/auth.store'
 import PostHeader from '@/components/posts/PostHeader'
 import './PostDetail.scss'
 
@@ -9,6 +10,8 @@ const PostDetail = () => {
   const navigate = useNavigate()
   const [post, setPost] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  const { member } = useAuth()
 
   const handleGoBack = () => navigate(-1)
 
@@ -74,14 +77,16 @@ const PostDetail = () => {
               ))}
             </div>
             
-            <div className="actions">
-              <button className="edit" onClick={() => navigate(`/app/posts/${id}/edit`)}>
-                수정
-              </button>
-              <button className="delete" onClick={handlePostDelete}>
-                삭제
-              </button>
-            </div>
+            {member && member.id === post.memberId && (
+              <div className="actions">
+                <button className="edit" onClick={() => navigate(`/app/posts/${id}/edit`)}>
+                  수정
+                </button>
+                <button className="delete" onClick={handlePostDelete}>
+                  삭제
+                </button>
+              </div>
+            )}
           </footer>
         </div>
       </div>

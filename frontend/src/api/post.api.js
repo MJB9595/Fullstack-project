@@ -13,6 +13,11 @@ export const getPosts = async()=>{
     return response.data
 }
 
+export const getMyPosts = async()=>{
+    const response = await client.get('/posts/me') // 내 게시글만
+    return response.data
+}
+
 export const getPostById = async(id)=>{
     const response = await client.get(`/posts/${id}`)
     

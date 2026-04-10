@@ -85,7 +85,7 @@ const PostDashboard = () => {
       <div className="layout-container">
         <div className="hero-section">
           <div className="title-area">
-            <h2 className="hero-title">VAIO의 역사에 대해서</h2>
+            <h2 className="hero-title">VAIONITY 모든 게시글</h2>
             <p className="hero-subtitle">
               {selectedCategory === 'ALL' ? 'The Footprint of VAIO' : `카테고리: ${currentCategoryLabel}`}
             </p>

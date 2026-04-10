@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { getPosts } from '@/api/post.api'
+import { getMyPosts } from '@/api/post.api'
 import { getMyTags } from '@/api/tag.api'
 import PostList from '@/components/posts/PostList'
 import TagFilterBar from '@/components/posts/TagFilterBar'
@@ -32,7 +32,7 @@ const PostAll = () => {
     setFetchError('')
     const fetchData = async () => {
       try {
-        const [response, tagRes] = await Promise.all([getPosts(), getMyTags()])
+        const [response, tagRes] = await Promise.all([getMyPosts(), getMyTags()])
         const rawPosts = Array.isArray(response) ? response : Array.isArray(response?.data) ? response.data : []
         const mappedPosts = rawPosts.map((post) => ({
           id: post.id,
@@ -91,7 +91,7 @@ const PostAll = () => {
       <div className="layout-container">
         <div className="hero-section">
           <div className="title-area">
-            <h2 className="hero-title">전체 게시글 보기</h2>
+            <h2 className="hero-title">내 작성글 보기</h2>
             <p className="hero-subtitle">
               {selectedCategory === 'ALL' ? 'All Posts Directory' : `카테고리: ${currentCategoryLabel}`}
             </p>

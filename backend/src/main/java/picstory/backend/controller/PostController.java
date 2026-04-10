@@ -25,15 +25,22 @@ public class PostController {
 
     @GetMapping
     public List<PostResponse> findAll(HttpSession session) {
-        return postService.findMyPosts(session);
+        return postService.findAllPosts(); // 서비스에 추가한 전체 조회 메서드 호출
     }
+
     @GetMapping("/{id}")
     public PostResponse findById(
             @PathVariable Long id,
             HttpSession session
     ){
-        return  postService.findById(id, session);
+        return postService.findById(id, session);
     }
+
+    @GetMapping("/me")
+    public List<PostResponse> findMyPosts(HttpSession session) {
+        return postService.findMyPosts(session);
+    }
+
     @PatchMapping("/{id}")
     public PostResponse update(
             @PathVariable Long id,

@@ -25,14 +25,19 @@ public class PostService {
 
     private static final String LOGIN_MEMBER_ID = "LOGIN_MEMBER_ID";
 
+    public List<PostResponse> findAllPosts() {
+        // 기존에 만들어둔 findAllByOrderByCreatedAtDesc() 사용
+        return postRepository.findAllByOrderByCreatedAtDesc()
+                .stream()
+                .map(PostResponse::from)
+                .toList();
+    }
 
     public List<PostResponse> findMyPosts(HttpSession session) {
         Long memberId = (Long) session.getAttribute(LOGIN_MEMBER_ID);
-
         if (memberId == null) {
             throw new IllegalArgumentException("로그인 후 이용해 주세요");
         }
-
         return postRepository.findByMember_IdOrderByCreatedAtDesc(memberId)
                 .stream()
                 .map(PostResponse::from)
@@ -71,17 +76,12 @@ public class PostService {
         }
 
         Long memberId = (Long) session.getAttribute(LOGIN_MEMBER_ID);
-
         if (memberId == null) {
             throw new IllegalArgumentException("로그인 후 이용해 주세요");
         }
+
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
-
-
-        if (!post.getMember().getId().equals(memberId)) {
-            throw new IllegalArgumentException("본인이 작성한 글만 조회할 수 있습니다.");
-        }
 
         return PostResponse.from(post);
     }
