@@ -9,7 +9,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -42,12 +41,7 @@ public class SecurityConfig {
 
         config.setAllowCredentials(true);
 
-        // 쉼표로 구분해 여러 출처 허용 (예: 배포 도메인 + 로컬 Vite http://localhost:5173)
-        List<String> origins = Arrays.stream(allowedOrigins.split(","))
-                .map(String::trim)
-                .filter(s -> !s.isEmpty())
-                .toList();
-        config.setAllowedOrigins(origins);
+        config.setAllowedOrigins(List.of(allowedOrigins));
 
         config.setAllowedMethods(List.of("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
 
@@ -58,4 +52,17 @@ public class SecurityConfig {
 
         return source;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
